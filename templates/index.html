@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="text-bg-success text-center py-2 rounded mb-4 mx-3 mt-2">Employee Details</h2>
+    <a href="{% url 'addnew' %}" class="btn btn-success my-2 text-center">Add New Employee</a>
+        <table class="table table-bordered table-hover">
+            <thead class="text-bg-dark text-center">
+                <tr>
+                    <th>Employee ID</th>
+                    <th>Employee Name</th>
+                    <th>Salary</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                {% for x in employees %}
+                <tr>
+                    <td>{{x.eid}}</td>
+                    <td>{{x.ename}}</td>
+                    <td>{{x.salary}}</td>
+                    <td>
+                        <a href="{% url 'edit' x.id %}" class="btn btn-primary">Edit</a>
+                        <a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#rem">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+
+     <!--Delete Modal -->
+  <div class="modal fade" id="rem" tabindex="-1" aria-labelledby="remLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h1 class="modal-title fs-5" id="remLabel">Delete Confirmation</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {% for y in employees %}
+                <form action="{% url 'rem' y.id %}" method="POST">
+                {% endfor %}
+                    {% csrf_token %}
+                    <h4>Are you sure want to delete the student?</h4>
+                    <input type="submit" value="Yes" class="btn btn-primary" />
+                </form> 
+            </div>
+
+            <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- modal shesh -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {% endblock %}
